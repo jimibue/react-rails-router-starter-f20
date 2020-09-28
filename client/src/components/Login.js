@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { useFormInput } from "../customHooks/useFormInput";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Login = (props) => {
+  const history = useHistory();
   const { handleLogin } = useContext(AuthContext);
   const email = useFormInput("testx2@test.com", "Email");
   const password = useFormInput("123456", "Email");
@@ -13,7 +15,7 @@ const Login = (props) => {
     console.log(password.value);
 
     //api call here pass {email, password}
-    handleLogin({ email: email.value, password: password.value });
+    handleLogin({ email: email.value, password: password.value }, history);
   };
   return (
     <div>

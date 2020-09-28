@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { useFormInput } from "../customHooks/useFormInput";
 import { AuthContext } from "../providers/AuthProvider";
 
@@ -8,6 +9,9 @@ const Register = (props) => {
   const passwordConfrimation = useFormInput("123456", "password Confrimation");
 
   const { handleRegister } = useContext(AuthContext);
+  const history = useHistory();
+
+  // history.push('/pathname') => will take us to route
 
   const handleSubmit = (e) => {
     //need to do this
@@ -18,11 +22,13 @@ const Register = (props) => {
       alert("passwords don not match");
     } else {
       // regisiter user
-      handleRegister({
-        email: email.value,
-        password: password.value,
-        passwordConfrimation: passwordConfrimation.value,
-      });
+      handleRegister(
+        {
+          email: email.value,
+          password: password.value,
+        },
+        history
+      );
     }
   };
   return (

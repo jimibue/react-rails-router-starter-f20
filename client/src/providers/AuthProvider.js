@@ -15,7 +15,7 @@ const AuthProvider = (props) => {
   // use promise in a more linear fansion, eaiser to read
 
   // user should be {email, password, passwordConfrimation}
-  const handleRegister = async (user) => {
+  const handleRegister = async (user, history) => {
     try {
       // axios calls return a promise so use await
       let res = await axios.post("/api/auth", user);
@@ -24,6 +24,7 @@ const AuthProvider = (props) => {
 
       // you don't know what this looks like
       setUser(res.data.data);
+      history.push("/");
     } catch (err) {
       // redo error handling
       const errs = err.response.data.errors.full_messages.reduce(
@@ -34,21 +35,25 @@ const AuthProvider = (props) => {
   };
 
   // I am expecting user to be {email, password}
-  const handleLogin = async (user) => {
+  const handleLogin = async (user, history) => {
     try {
       let res = await axios.post("api/auth/sign_in", user);
+
       setUser(res.data.data);
+      history.push("/");
     } catch (err) {
       alert("error in logging in");
       debugger;
     }
   };
 
-  const handleLogout = async () => {
+  const handleLogout = async (history) => {
     try {
       // await block until done
       let res = await axios.delete("/api/auth/sign_out");
+
       setUser(null);
+      history.push("/login");
     } catch (err) {
       debugger;
     }
@@ -57,6 +62,7 @@ const AuthProvider = (props) => {
     <AuthContext.Provider
       value={{
         user,
+        authenticated: user !== null,
         setUser,
         handleRegister,
         handleLogout,

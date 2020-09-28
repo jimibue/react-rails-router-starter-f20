@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import styled from "styled-components";
 // For Basic setup only please change
@@ -8,14 +8,18 @@ import styled from "styled-components";
 
 // if logged in I want logout link, also ProtectRoutes Rendered
 const NavBar = () => {
+  const history = useHistory();
   const { user, handleLogout } = useContext(AuthContext);
 
   const getRightNav = () => {
     if (user) {
       return (
         <>
-          {/* what I am badly here */}
-          <div onClick={handleLogout} style={{ color: "steelblue" }}>
+          {/* part 2 what I am badly here Instant Bug */}
+          <div
+            onClick={() => handleLogout(history)}
+            style={{ color: "steelblue" }}
+          >
             logout!
           </div>
         </>
@@ -36,7 +40,7 @@ const NavBar = () => {
       <div>
         <Link to="/">Home</Link>
         <span style={{ marginRight: "10px" }}></span>
-        <Link to="/thingsDemo">Things</Link>
+        {user && <Link to="/thingsDemo">Things</Link>}
       </div>
       <div>{getRightNav()}</div>
     </div>
