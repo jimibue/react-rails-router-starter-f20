@@ -3,9 +3,9 @@ import { useFormInput } from "../customHooks/useFormInput";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Register = (props) => {
-  const email = useFormInput("", "Email");
-  const password = useFormInput("", "Password");
-  const passwordConfrimation = useFormInput("", "password Confrimation");
+  const email = useFormInput("testx@test.com", "Email");
+  const password = useFormInput("123456", "Password");
+  const passwordConfrimation = useFormInput("123456", "password Confrimation");
 
   const { handleRegister } = useContext(AuthContext);
 

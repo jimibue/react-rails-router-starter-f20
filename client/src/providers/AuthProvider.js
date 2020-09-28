@@ -32,9 +32,37 @@ const AuthProvider = (props) => {
       alert(errs);
     }
   };
+
+  // I am expecting user to be {email, password}
+  const handleLogin = async (user) => {
+    try {
+      let res = await axios.post("api/auth/sign_in", user);
+      setUser(res.data.data);
+    } catch (err) {
+      alert("error in logging in");
+      debugger;
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      // await block until done
+      let res = await axios.delete("/api/auth/sign_out");
+      setUser(null);
+    } catch (err) {
+      debugger;
+    }
+  };
   return (
     <AuthContext.Provider
-      value={{ user, setUser, handleRegister, tacos: "awesome" }}
+      value={{
+        user,
+        setUser,
+        handleRegister,
+        handleLogout,
+        handleLogin,
+        tacos: "awesome",
+      }}
     >
       {/* nested stuff going here */}
       {props.children}

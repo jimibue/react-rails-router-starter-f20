@@ -5,6 +5,7 @@ import NavBar from "./components/Navbar";
 import ThingsDemo from "./things/ThingsDemo";
 import { Container } from "semantic-ui-react";
 import Register from "./components/Register";
+import Login from "./components/Login";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
           <Route exact path="/thingsDemo" component={ThingsDemo} />
         </Switch>
       </Container>

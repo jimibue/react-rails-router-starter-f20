@@ -1,27 +1,30 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
-
+import styled from "styled-components";
 // For Basic setup only please change
 
 // if not logged in I want register/login links
 
 // if logged in I want logout link, also ProtectRoutes Rendered
 const NavBar = () => {
-  const { user } = useContext(AuthContext);
+  const { user, handleLogout } = useContext(AuthContext);
 
   const getRightNav = () => {
     if (user) {
       return (
         <>
           {/* what I am badly here */}
-          <div style={{ color: "steelblue" }}>logout!</div>
+          <div onClick={handleLogout} style={{ color: "steelblue" }}>
+            logout!
+          </div>
         </>
       );
     } else {
       return (
         <>
           <Link to="/register">register</Link>
+          <span style={{ marginRight: "10px" }}></span>
           <Link to="/login">login</Link>
         </>
       );
@@ -46,7 +49,7 @@ const styles = {
     background: "black",
     padding: "10px",
     display: "flex",
-    justifyContent: "end",
+    justifyContent: "space-between",
   },
 };
 
