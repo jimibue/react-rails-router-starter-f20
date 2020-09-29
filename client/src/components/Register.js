@@ -8,7 +8,7 @@ const Register = (props) => {
   const password = useFormInput("123456", "Password");
   const passwordConfrimation = useFormInput("123456", "password Confrimation");
 
-  const { handleRegister } = useContext(AuthContext);
+  const { handleRegister, authLoading, authErrors } = useContext(AuthContext);
   const history = useHistory();
 
   // history.push('/pathname') => will take us to route
@@ -31,8 +31,24 @@ const Register = (props) => {
       );
     }
   };
+  // if (authLoading) {
+  //   return (
+  //     <>
+  //       <p>loading</p>
+  //     </>
+  //   );
+  // }
+
   return (
     <div>
+      {authErrors && (
+        <>
+          {authErrors.map((err) => (
+            <p>{err}</p>
+          ))}
+        </>
+      )}
+
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <p>{email.label}</p>
@@ -41,7 +57,11 @@ const Register = (props) => {
         <input type="password" {...password} />
         <p>{passwordConfrimation.label}</p>
         <input type="password" {...passwordConfrimation} />
-        <button type="submit">register</button>
+        {authLoading ? (
+          <button disabled> spinner goes here</button>
+        ) : (
+          <button type="submit">register</button>
+        )}
       </form>
     </div>
   );
